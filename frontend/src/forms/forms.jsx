@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios'; // ✨ Jennie brought in your favorite! ✨
+import { useState } from 'react';
+import axios from 'axios';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,6 @@ const SketchyForm = ({ mode = 'login' }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Pointing directly to your gorgeous port 8080!
     const endpoint = isRegister
       ? 'http://localhost:8080/api/v1/auth/register'
       : 'http://localhost:8080/api/v1/auth/login';
@@ -35,20 +34,17 @@ const SketchyForm = ({ mode = 'login' }) => {
         withCredentials: true
       });
 
-      console.log('Backend replied with:', response.data); // For your debugging pleasure! 🕵️‍♀️
+      console.log('Backend replied with:', response.data); 
 
-      setBackendMessage(`Yay! 💕 ${response.data.message || 'It worked perfectly!'}`);
+      setBackendMessage('It worked perfectly!');
 
       if(!isRegister) navigate("/");
 
     } catch (error) {
-      // Axios is so smart, it helps us know if the backend rejected us, or if it's just asleep!
       if (error.response) {
-        // The backend answered, but with an error (like wrong password)
         setBackendMessage(`Oops! 💔 ${error.response.data.message || 'Something went wrong.'}`);
       } else {
-        // The backend didn't answer at all
-        setBackendMessage('Oh no, darling! 🥀 Jennie could not reach port 8080. Is it running?');
+        setBackendMessage('Error');
       }
     }
   };

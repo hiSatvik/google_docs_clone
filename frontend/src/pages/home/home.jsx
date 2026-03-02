@@ -53,10 +53,10 @@ export default function Home() {
                         <div className="profile">
                             <div className="profile-ring">
                                 <div className="gap">
-                                    <img src="https://i.namu.wiki/i/bXvoxoQTdizpiPKcex5yfh9f_1LhBUf3S92gKypJDdz4DFEr-qr6-Olay_vJ65yN7tA-8iBg1CE3ppl0HeDb2zJJS-WadctZTYzExO6INwhDfJkOU4L0hmqqB1dpbXsh7hcdbMixVERM3ssT1G8a549bSMN8X5sUlVAqCBg3vbo.webp" alt="profile-img" />
+                                    <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="profile-img" />
                                 </div>
                             </div>
-                            <h3>Eunhye Park</h3>
+                            <h3>Satvik</h3>
                             <p>Dashboard Admin</p>
                         </div>
                     </div>
