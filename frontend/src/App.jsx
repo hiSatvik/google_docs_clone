@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import SketchyForm from "./forms/forms"
-import Home from "./pages/home"
+import Home from "./pages/home/home"
+import DocumentEditor from "./pages/editor/editor"
 
 export default function App() {
 
@@ -16,6 +17,10 @@ export default function App() {
     {
       path: "/",
       element: <Home />
+    },
+    {
+      path: "/editor",
+      element: <DocumentEditor />
     }
   ])
   return (

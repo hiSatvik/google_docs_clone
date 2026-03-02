@@ -42,9 +42,6 @@ export const login = async (email, password) => {
 
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
 
-        console.log("Somthing is not wrong here");
-
-
         return { token, user: { id: user.id, name: user.name, email: user.email } };
     } catch (error) {
         throw new Error(error.message);

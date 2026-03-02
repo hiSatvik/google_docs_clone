@@ -6,6 +6,7 @@ export default function Home() {
 
     const [documents, setDocuments] = useState([]);
     const [loading, setloading] = useState(true);
+    const [recentcreate, setrecentcreate] = useState([]);
 
     useEffect(() => {
         async function fetchdocuments() {
@@ -14,7 +15,13 @@ export default function Home() {
                     withCredentials: true
                 });
 
-                setDocuments(response.data.documents);
+                const alldocs = response.data.documents;
+
+                setrecentcreate([...alldocs].
+                    sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 3)
+                );
+
+                setDocuments(alldocs);
                 console.log(response.data)
             } catch (error) {
                 console.error("Some kind of error is found while fetching");
@@ -24,7 +31,7 @@ export default function Home() {
         }
 
         fetchdocuments();
-    },[]);
+    }, []);
 
     return (
         <div className="container">
@@ -56,8 +63,8 @@ export default function Home() {
                     <div className="p-section">
                         <h1>Priorites</h1>
                         <div className="p-cards">
-                            <div className="p-card first card">Nothing to show</div>
-                            <div className="p-card second card">Nothing to show</div>
+                            <div className="p-card first card empty-text">Nothing to show</div>
+                            <div className="p-card second card empty-text">Nothing to show</div>
                         </div>
                     </div>
                 </div>
@@ -74,20 +81,38 @@ export default function Home() {
                 </div>
                 <div className="recent-row">
                     {loading ? (
-                        <p>Wait documents are being fetched</p>
-                    ): documents.length > 0 ? (
-                        <p>documents are loaded</p>
-                    ):(
-                        <p>Nothing to show bitch</p>
+                        <p>Loading your masterpieces...</p>
+                    ) : documents.length > 0 ? (
+                        <div className="documents-grid">
+                            {documents.map((doc) => (
+                                <div key={doc.id} className="document-card">
+                                    <h3 className="doc-title">{doc.title}</h3>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p>No documents yet. Create something beautiful.</p>
                     )}
                 </div>
             </div>
             <div className="right">
                 <div className="line"></div>
                 <div className="cards">
-                    <div className="recent-card card r">Nothing to Show</div>
-                    <div className="created-card card r">Nothing to Show</div>
-                    <div className="edited-card card r">Nothing to Show</div>
+                    {recentcreate[0] ? (
+                        <div className="card r">{recentcreate[0].title}</div>                        
+                    ) : (
+                        <div className="empty-text">Nothing to Show</div>
+                    )}
+                    {recentcreate[1] ? (
+                        <div className="card r">{recentcreate[1].title}</div>
+                    ) : (
+                        <div></div>
+                    )}
+                    {recentcreate[2] ? (
+                        <div className="card r">{recentcreate[2].title}</div>                        
+                    ) : (
+                        <div></div>
+                    )}
                 </div>
             </div>
         </div>

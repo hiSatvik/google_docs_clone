@@ -23,12 +23,10 @@ export const loginController = async (req, res) => {
 
         res.cookie("token", result.token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            secure: false,
+            sameSite: "Lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-
-        console.log("Controller is false");
 
         return res.status(200).json({ success: true, ...result });
     } catch (error) {
@@ -40,11 +38,12 @@ export const loginController = async (req, res) => {
 /***********   Document Controller   *************/
 /////////////////////////////////////
 
-import { createnewDocument, getDocumentsByUserId } from "../services/documentServices.js";
+import { createnewDocument, getDocumentsByUserId, deleteDocumentById } from "../services/documentServices.js";
 
 export const createDocument = async (req, res) => {
     const { title, content } = req.body;
     const userId = req.user.userId;
+    console.log("Create ducment route");
     console.log("req.user:", req.user);
     console.log("userId:", userId);
 

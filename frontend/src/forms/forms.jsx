@@ -31,7 +31,9 @@ const SketchyForm = ({ mode = 'login' }) => {
       : 'http://localhost:8080/api/v1/auth/login';
 
     try {
-      const response = await axios.post(endpoint, formData);
+      const response = await axios.post(endpoint, formData, {
+        withCredentials: true
+      });
 
       console.log('Backend replied with:', response.data); // For your debugging pleasure! 🕵️‍♀️
 

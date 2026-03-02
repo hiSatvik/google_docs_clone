@@ -10,7 +10,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE documents (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR NOT NULL,
     owner_id UUID REFERENCES users(id) ON DELETE CASCADE,
     content JSONB,
@@ -22,14 +22,9 @@ CREATE TABLE documents (
 CREATE TYPE permission_role AS ENUM ('viewer', 'editor', 'owner');
 
 CREATE TABLE permissions (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     document_id UUID REFERENCES documents(id) ON DELETE CASCADE,
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
     role permission_role NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-ALTER TABLE users
-ALTER COLUMN id SET DEFAULT gen_random_uuid();
-
-SELECT * FROM users;

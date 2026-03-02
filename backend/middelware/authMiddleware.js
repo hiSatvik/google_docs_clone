@@ -5,8 +5,12 @@ const JWT_SECRET = process.env.JWT_SECRET || "SecretKEt";
 export const authMiddleware = (req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log("THis route got hit")
+        console.log("Cookies:", req.cookies);
+        console.log("Token:", req.cookies.token);
 
-        if(!token) {
+
+        if (!token) {
             return res.status(401).json({ message: "No token provided!" });
         }
         const decoded = jwt.verify(token, JWT_SECRET, (err, user) => {
@@ -16,7 +20,6 @@ export const authMiddleware = (req, res, next) => {
                     message: "Invalid token!"
                 })
             }
-
             req.user = user;
             next();
         });
